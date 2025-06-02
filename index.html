@@ -1,0 +1,2185 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Love Universe 💕</title>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-pink: #FF69B4;
+            --primary-yellow: #FFD700;
+            --light-pink: #FFE0EC;
+            --light-yellow: #FFF5E6;
+            --dark-pink: #FF1493;
+            --white: #FFFFFF;
+            --gray: #666666;
+            --dark: #333333;
+        }
+
+        body {
+            font-family: 'Prompt', sans-serif;
+            background: linear-gradient(135deg, var(--light-yellow) 0%, var(--light-pink) 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--light-yellow);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 1s ease-out;
+        }
+
+        .heart-loader {
+            width: 80px;
+            height: 80px;
+            position: relative;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        .heart-loader:before,
+        .heart-loader:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 52px;
+            height: 80px;
+            background: var(--primary-pink);
+            border-radius: 50px 50px 0 0;
+            transform: rotate(-45deg);
+            transform-origin: 0 100%;
+        }
+
+        .heart-loader:after {
+            left: 52px;
+            transform: rotate(45deg);
+            transform-origin: 100% 100%;
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+            100% { transform: scale(1); }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-pink);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--dark);
+            font-size: 16px;
+            transition: color 0.3s ease;
+            position: relative;
+            padding: 5px 10px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-menu a:hover, .nav-menu a.active {
+            color: var(--white);
+            background: var(--primary-pink);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--primary-pink);
+        }
+
+        /* Page Container */
+        .page-container {
+            margin-top: 80px;
+            min-height: calc(100vh - 80px);
+            padding: 20px;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Common Styles */
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            color: var(--primary-pink);
+            margin-bottom: 50px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn {
+            background: var(--primary-pink);
+            color: var(--white);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Prompt', sans-serif;
+        }
+
+        .btn:hover {
+            background: var(--dark-pink);
+            transform: translateY(-2px);
+        }
+
+        .btn-yellow {
+            background: var(--primary-yellow);
+            color: var(--dark);
+        }
+
+        .btn-yellow:hover {
+            background: #FFA500;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid var(--light-pink);
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: 'Prompt', sans-serif;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-pink);
+        }
+
+        /* Home Page */
+        .hero {
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            color: var(--primary-pink);
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: var(--gray);
+            margin-bottom: 30px;
+        }
+
+        .day-counter {
+            background: var(--white);
+            padding: 30px 50px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+
+        .day-counter h2 {
+            color: var(--primary-pink);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .day-counter .days {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--primary-yellow);
+        }
+
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 50px auto;
+        }
+
+        .quick-link {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            text-decoration: none;
+            color: var(--dark);
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .quick-link:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .quick-link-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        /* Love Letter Page */
+        .letter-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .letter-form .form-group {
+            margin-bottom: 20px;
+        }
+
+        .letter-form label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--primary-pink);
+            font-weight: 600;
+        }
+
+        .letters-list {
+            max-width: 800px;
+            margin: 50px auto;
+        }
+
+        .letter-item {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid var(--primary-pink);
+        }
+
+        .letter-date {
+            color: var(--gray);
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .letter-from {
+            color: var(--primary-pink);
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .letter-content {
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* Mini Games Page */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .game-card {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .game-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .game-title {
+            font-size: 1.5rem;
+            color: var(--primary-pink);
+            margin-bottom: 10px;
+        }
+
+        /* Memory Game */
+        .memory-game {
+            display: none;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .memory-card {
+            aspect-ratio: 1;
+            background: var(--primary-pink);
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--white);
+            transition: all 0.3s ease;
+        }
+
+        .memory-card.flipped {
+            background: var(--primary-yellow);
+            transform: rotateY(180deg);
+        }
+
+        .memory-card.matched {
+            background: #90EE90;
+            cursor: default;
+        }
+
+        /* Quiz Game */
+        .quiz-game {
+            display: none;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .quiz-question {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .quiz-option {
+            background: var(--light-pink);
+            padding: 15px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .quiz-option:hover {
+            background: var(--primary-pink);
+            color: var(--white);
+        }
+
+        .quiz-option.correct {
+            background: #90EE90;
+        }
+
+        .quiz-option.wrong {
+            background: #FFB6C1;
+        }
+
+        /* Calendar Page */
+        .calendar-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            background: var(--white);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .calendar-day:hover {
+            background: var(--light-pink);
+        }
+
+        .calendar-day.special {
+            background: var(--primary-pink);
+            color: var(--white);
+        }
+
+        .calendar-day.special::after {
+            content: '💕';
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            font-size: 12px;
+        }
+
+        .special-dates-list {
+            margin-top: 30px;
+        }
+
+        .special-date-item {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .countdown {
+            background: var(--primary-yellow);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        /* Video Memories Page */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .video-item {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .video-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: 200px;
+            background: var(--light-pink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            cursor: pointer;
+        }
+
+        .video-info {
+            padding: 20px;
+        }
+
+        .video-title {
+            font-size: 1.2rem;
+            color: var(--primary-pink);
+            margin-bottom: 5px;
+        }
+
+        .video-date {
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        /* Wishlist Page */
+        .wishlist-form {
+            max-width: 600px;
+            margin: 0 auto 50px;
+        }
+
+        .wishlist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .wishlist-item {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .wishlist-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .wishlist-icon {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+        }
+
+        .wishlist-title {
+            font-size: 1.2rem;
+            color: var(--primary-pink);
+            margin-bottom: 10px;
+        }
+
+        .wishlist-description {
+            color: var(--gray);
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .wishlist-by {
+            color: var(--primary-yellow);
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Dreams Page */
+        .dreams-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .dream-category {
+            margin-bottom: 40px;
+        }
+
+        .dream-category-title {
+            font-size: 1.8rem;
+            color: var(--primary-pink);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .dream-list {
+            display: grid;
+            gap: 15px;
+        }
+
+        .dream-item {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .dream-item:hover {
+            transform: translateX(10px);
+        }
+
+        .dream-checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--primary-pink);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dream-checkbox.checked {
+            background: var(--primary-pink);
+            position: relative;
+        }
+
+        .dream-checkbox.checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--white);
+        }
+
+        /* Playlist Page */
+        .playlist-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .playlist-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .playlist-cover {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary-pink), var(--primary-yellow));
+            border-radius: 20px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .song-list {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .song-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--light-pink);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .song-item:hover {
+            background: var(--light-pink);
+            margin: 0 -30px;
+            padding: 15px 30px;
+        }
+
+        .song-item:last-child {
+            border-bottom: none;
+        }
+
+        .song-number {
+            width: 30px;
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .song-info {
+            flex: 1;
+            margin-left: 20px;
+        }
+
+        .song-title {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 3px;
+        }
+
+        .song-artist {
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .song-duration {
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        /* Story Blog Page */
+        .blog-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .blog-form {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .blog-posts {
+            display: grid;
+            gap: 30px;
+        }
+
+        .blog-post {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .blog-post:hover {
+            transform: translateY(-5px);
+        }
+
+        .blog-post-header {
+            background: linear-gradient(135deg, var(--primary-pink), var(--primary-yellow));
+            color: var(--white);
+            padding: 20px 30px;
+        }
+
+        .blog-post-title {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .blog-post-meta {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .blog-post-content {
+            padding: 30px;
+            color: var(--dark);
+            line-height: 1.8;
+        }
+
+        /* Map Journey Page */
+        .map-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .map-placeholder {
+            background: var(--white);
+            height: 500px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--gray);
+            margin-bottom: 40px;
+        }
+
+        .location-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .location-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .location-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .location-image {
+            width: 100%;
+            height: 200px;
+            background: var(--light-pink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .location-info {
+            padding: 20px;
+        }
+
+        .location-name {
+            font-size: 1.2rem;
+            color: var(--primary-pink);
+            margin-bottom: 5px;
+        }
+
+        .location-date {
+            color: var(--gray);
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .location-description {
+            color: var(--dark);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Secret Messages Page */
+        .secret-container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .secret-locked {
+            background: var(--white);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .secret-locked-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .secret-password-input {
+            max-width: 300px;
+            margin: 20px auto;
+        }
+
+        .secret-messages {
+            display: none;
+        }
+
+        .secret-message-item {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .secret-message-item::before {
+            content: '💌';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 80px;
+            opacity: 0.1;
+        }
+
+        .secret-message-date {
+            color: var(--gray);
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .secret-message-content {
+            color: var(--dark);
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        /* Floating Elements */
+        .floating-hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .floating-heart {
+            position: absolute;
+            bottom: -100px;
+            font-size: 30px;
+            animation: floatUp 10s linear infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes floatUp {
+            to {
+                transform: translateY(-120vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Music Player */
+        .music-player {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--white);
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .music-toggle {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-pink);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--white);
+            transition: background 0.3s ease;
+        }
+
+        .music-toggle:hover {
+            background: var(--dark-pink);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                background: var(--white);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+                transition: left 0.3s ease;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .quick-links {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .music-player {
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: var(--white);
+            padding: 20px 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 2000;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.success {
+            border-left: 5px solid #90EE90;
+        }
+
+        .toast.error {
+            border-left: 5px solid #FFB6C1;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            border: 3px solid var(--light-pink);
+            border-top: 3px solid var(--primary-pink);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="heart-loader"></div>
+        <p style="margin-top: 20px; color: var(--primary-pink); font-size: 1.2rem;">Loading our universe...</p>
+    </div>
+
+    <!-- Floating Hearts -->
+    <div class="floating-hearts" id="floatingHearts"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a class="nav-logo" onclick="showPage('home')">
+                <span>💕</span>
+                <span>Our Love Universe</span>
+            </a>
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#" onclick="showPage('home')" class="nav-link active">Home</a></li>
+                <li><a href="#" onclick="showPage('letters')" class="nav-link">Letters</a></li>
+                <li><a href="#" onclick="showPage('games')" class="nav-link">Games</a></li>
+                <li><a href="#" onclick="showPage('calendar')" class="nav-link">Calendar</a></li>
+                <li><a href="#" onclick="showPage('videos')" class="nav-link">Videos</a></li>
+                <li><a href="#" onclick="showPage('wishlist')" class="nav-link">Wishlist</a></li>
+                <li><a href="#" onclick="showPage('dreams')" class="nav-link">Dreams</a></li>
+                <li><a href="#" onclick="showPage('playlist')" class="nav-link">Playlist</a></li>
+                <li><a href="#" onclick="showPage('blog')" class="nav-link">Blog</a></li>
+                <li><a href="#" onclick="showPage('map')" class="nav-link">Map</a></li>
+                <li><a href="#" onclick="showPage('secret')" class="nav-link">Secret</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Container -->
+    <div class="page-container">
+        <!-- Home Page -->
+        <div class="page active" id="homePage">
+            <div class="hero">
+                <h1>Welcome to Our Universe 💫</h1>
+                <p>ทุกหน้าคือความทรงจำ ทุกคลิกคือความรัก</p>
+                <div class="day-counter">
+                    <h2>เราอยู่ด้วยกันมาแล้ว</h2>
+                    <div class="days" id="dayCount">0</div>
+                    <p>วันแห่งความสุข</p>
+                </div>
+            </div>
+
+            <div class="quick-links">
+                <a href="#" onclick="showPage('letters')" class="quick-link">
+                    <div class="quick-link-icon">💌</div>
+                    <h3>Love Letters</h3>
+                    <p>เขียนจดหมายถึงกัน</p>
+                </a>
+                <a href="#" onclick="showPage('games')" class="quick-link">
+                    <div class="quick-link-icon">🎮</div>
+                    <h3>Mini Games</h3>
+                    <p>เล่นเกมสนุกๆ</p>
+                </a>
+                <a href="#" onclick="showPage('calendar')" class="quick-link">
+                    <div class="quick-link-icon">📅</div>
+                    <h3>Special Dates</h3>
+                    <p>วันสำคัญของเรา</p>
+                </a>
+                <a href="#" onclick="showPage('videos')" class="quick-link">
+                    <div class="quick-link-icon">🎬</div>
+                    <h3>Video Memories</h3>
+                    <p>วิดีโอความทรงจำ</p>
+                </a>
+                <a href="#" onclick="showPage('wishlist')" class="quick-link">
+                    <div class="quick-link-icon">🎁</div>
+                    <h3>Wishlist</h3>
+                    <p>สิ่งที่อยากได้</p>
+                </a>
+                <a href="#" onclick="showPage('dreams')" class="quick-link">
+                    <div class="quick-link-icon">💭</div>
+                    <h3>Our Dreams</h3>
+                    <p>ความฝันของเรา</p>
+                </a>
+                <a href="#" onclick="showPage('playlist')" class="quick-link">
+                    <div class="quick-link-icon">🎵</div>
+                    <h3>Our Playlist</h3>
+                    <p>เพลงของเรา</p>
+                </a>
+                <a href="#" onclick="showPage('blog')" class="quick-link">
+                    <div class="quick-link-icon">📖</div>
+                    <h3>Story Blog</h3>
+                    <p>บันทึกเรื่องราว</p>
+                </a>
+                <a href="#" onclick="showPage('map')" class="quick-link">
+                    <div class="quick-link-icon">🗺️</div>
+                    <h3>Journey Map</h3>
+                    <p>แผนที่การเดินทาง</p>
+                </a>
+                <a href="#" onclick="showPage('secret')" class="quick-link">
+                    <div class="quick-link-icon">🔒</div>
+                    <h3>Secret Messages</h3>
+                    <p>ข้อความลับ</p>
+                </a>
+            </div>
+        </div>
+
+        <!-- Love Letters Page -->
+        <div class="page" id="lettersPage">
+            <h1 class="section-title">Love Letters 💌</h1>
+            
+            <div class="letter-form card">
+                <h2 style="color: var(--primary-pink); margin-bottom: 20px;">เขียนจดหมายรัก</h2>
+                <form id="letterForm">
+                    <div class="form-group">
+                        <label>จาก:</label>
+                        <input type="text" id="letterFrom" placeholder="ชื่อของคุณ" required>
+                    </div>
+                    <div class="form-group">
+                        <label>ถึง:</label>
+                        <input type="text" id="letterTo" placeholder="ชื่อคนที่คุณรัก" required>
+                    </div>
+                    <div class="form-group">
+                        <label>ข้อความ:</label>
+                        <textarea id="letterContent" rows="5" placeholder="เขียนความรู้สึกของคุณ..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn">ส่งจดหมาย 💕</button>
+                </form>
+            </div>
+
+            <div class="letters-list" id="lettersList">
+                <h2 style="text-align: center; color: var(--primary-pink); margin-bottom: 30px;">จดหมายทั้งหมด</h2>
+                <div id="lettersContainer"></div>
+            </div>
+        </div>
+
+        <!-- Mini Games Page -->
+        <div class="page" id="gamesPage">
+            <h1 class="section-title">Mini Games 🎮</h1>
+            
+            <div class="games-grid" id="gamesGrid">
+                <div class="game-card" onclick="showGame('memory')">
+                    <div class="game-icon">🧩</div>
+                    <h3 class="game-title">Memory Game</h3>
+                    <p>จับคู่รูปภาพความทรงจำ</p>
+                </div>
+                <div class="game-card" onclick="showGame('quiz')">
+                    <div class="game-icon">❓</div>
+                    <h3 class="game-title">Love Quiz</h3>
+                    <p>ทดสอบว่ารู้จักกันแค่ไหน</p>
+                </div>
+                <div class="game-card" onclick="showGame('puzzle')">
+                    <div class="game-icon">🧩</div>
+                    <h3 class="game-title">Photo Puzzle</h3>
+                    <p>ต่อภาพความทรงจำ</p>
+                </div>
+            </div>
+
+            <!-- Memory Game -->
+            <div class="memory-game" id="memoryGame">
+                <div class="card">
+                    <h2 style="text-align: center; color: var(--primary-pink);">Memory Game</h2>
+                    <p style="text-align: center; margin-bottom: 20px;">จับคู่ emoji ที่เหมือนกัน</p>
+                    <div class="memory-grid" id="memoryGrid"></div>
+                    <div style="text-align: center; margin-top: 20px;">
+                        <p>Moves: <span id="moveCount">0</span></p>
+                        <button class="btn btn-yellow" onclick="resetMemoryGame()">เริ่มใหม่</button>
+                        <button class="btn" onclick="showPage('games')">กลับ</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Game -->
+            <div class="quiz-game" id="quizGame">
+                <div class="card">
+                    <h2 style="text-align: center; color: var(--primary-pink);">Love Quiz</h2>
+                    <div id="quizContainer"></div>
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button class="btn" onclick="showPage('games')">กลับ</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calendar Page -->
+        <div class="page" id="calendarPage">
+            <h1 class="section-title">Special Dates 📅</h1>
+            
+            <div class="calendar-container">
+                <div class="card">
+                    <div class="calendar-header">
+                        <button class="btn btn-yellow" onclick="changeMonth(-1)">◀</button>
+                        <h2 id="calendarMonth" style="color: var(--primary-pink);">January 2024</h2>
+                        <button class="btn btn-yellow" onclick="changeMonth(1)">▶</button>
+                    </div>
+                    <div class="calendar-grid" id="calendarGrid"></div>
+                </div>
+
+                <div class="special-dates-list">
+                    <h2 style="color: var(--primary-pink); margin-bottom: 20px;">วันสำคัญของเรา</h2>
+                    <div id="specialDatesList"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Video Memories Page -->
+        <div class="page" id="videosPage">
+            <h1 class="section-title">Video Memories 🎬</h1>
+            
+            <div class="video-grid">
+                <div class="video-item">
+                    <div class="video-thumbnail" onclick="playVideo('video1')">▶️</div>
+                    <div class="video-info">
+                        <h3 class="video-title">Our First Trip</h3>
+                        <p class="video-date">1 July 2023</p>
+                    </div>
+                </div>
+                <div class="video-item">
+                    <div class="video-thumbnail" onclick="playVideo('video2')">▶️</div>
+                    <div class="video-info">
+                        <h3 class="video-title">Birthday Surprise</h3>
+                        <p class="video-date">14 February 2024</p>
+                    </div>
+                </div>
+                <div class="video-item">
+                    <div class="video-thumbnail" onclick="playVideo('video3')">▶️</div>
+                    <div class="video-info">
+                        <h3 class="video-title">Anniversary Celebration</h3>
+                        <p class="video-date">14 February 2024</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wishlist Page -->
+        <div class="page" id="wishlistPage">
+            <h1 class="section-title">Our Wishlist 🎁</h1>
+            
+            <div class="wishlist-form card">
+                <h2 style="color: var(--primary-pink); margin-bottom: 20px;">เพิ่มสิ่งที่อยากได้</h2>
+                <form id="wishlistForm">
+                    <div class="form-group">
+                        <label>สิ่งที่อยากได้:</label>
+                        <input type="text" id="wishTitle" placeholder="เช่น กล้องถ่ายรูป" required>
+                    </div>
+                    <div class="form-group">
+                        <label>รายละเอียด:</label>
+                        <textarea id="wishDescription" rows="3" placeholder="บอกรายละเอียดเพิ่มเติม..." required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>ใครอยากได้:</label>
+                        <input type="text" id="wishBy" placeholder="ชื่อของคุณ" required>
+                    </div>
+                    <button type="submit" class="btn">เพิ่มในรายการ 🎁</button>
+                </form>
+            </div>
+
+            <div class="wishlist-grid" id="wishlistGrid"></div>
+        </div>
+
+        <!-- Dreams Page -->
+        <div class="page" id="dreamsPage">
+            <h1 class="section-title">Our Dreams 💭</h1>
+            
+            <div class="dreams-container">
+                <div class="dream-category">
+                    <h2 class="dream-category-title">
+                        <span>🏖️</span>
+                        <span>สถานที่ที่อยากไป</span>
+                    </h2>
+                    <div class="dream-list">
+                        <div class="dream-item">
+                            <div class="dream-checkbox" onclick="toggleDream(this)"></div>
+                            <span>ไปดูแสงเหนือที่ไอซ์แลนด์</span>
+                        </div>
+                        <div class="dream-item">
+                            <div class="dream-checkbox" onclick="toggleDream(this)"></div>
+                            <span>ดำน้ำที่มัลดีฟส์</span>
+                        </div>
+                        <div class="dream-item">
+                            <div class="dream-checkbox" onclick="toggleDream(this)"></div>
+                            <span>ปีนภูเขาฟูจิ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dream-category">
+                    <h2 class="dream-category-title">
+                        <span>🎯</span>
+                        <span>เป้าหมายที่อยากทำด้วยกัน</span>
+                    </h2>
+                    <div class="dream-list">
+                        <div class="dream-item">
+                            <div class="dream-checkbox" onclick="toggleDream(this)"></div>
+                            <span>สร้างบ้านในฝัน</span>
+                        </div>
+                        <div class="dream-item">
+                            <div class="dream-checkbox" onclick="toggleDream(this)"></div>
+                            <span>เลี้ยงสุนัขด้วยกัน</span>
+                        </div>
+                        <div class="dream-item">
+                            <div class="dream-checkbox" onclick="toggleDream(this)"></div>
+                            <span>เปิดร้านกาแฟเล็กๆ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dream-category">
+                    <h2 class="dream-category-title">
+                        <span>✨</span>
+                        <span>ประสบการณ์ที่อยากลอง</span>
+                    </h2>
+                    <div class="dream-list">
+                        <div class="dream-item">
+                            <div class="dream-checkbox" onclick="toggleDream(this)"></div>
+                            <span>กระโดดร่ม</span>
+                        </div>
+                        <div class="dream-item">
+                            <div class="dream-checkbox" onclick="toggleDream(this)"></div>
+                            <span>ขึ้นบอลลูน</span>
+                        </div>
+                        <div class="dream-item">
+                            <div class="dream-checkbox" onclick="toggleDream(this)"></div>
+                            <span>ดูคอนเสิร์ตที่ต่างประเทศ</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Playlist Page -->
+        <div class="page" id="playlistPage">
+            <h1 class="section-title">Our Playlist 🎵</h1>
+            
+            <div class="playlist-container">
+                <div class="playlist-header">
+                    <div class="playlist-cover">🎵</div>
+                    <h2 style="color: var(--primary-pink);">Songs of Our Love</h2>
+                    <p style="color: var(--gray);">12 songs • 48 minutes</p>
+                </div>
+
+                <div class="song-list">
+                    <div class="song-item">
+                        <div class="song-number">1</div>
+                        <div class="song-info">
+                            <div class="song-title">Perfect</div>
+                            <div class="song-artist">Ed Sheeran</div>
+                        </div>
+                        <div class="song-duration">4:23</div>
+                    </div>
+                    <div class="song-item">
+                        <div class="song-number">2</div>
+                        <div class="song-info">
+                            <div class="song-title">All of Me</div>
+                            <div class="song-artist">John Legend</div>
+                        </div>
+                        <div class="song-duration">4:29</div>
+                    </div>
+                    <div class="song-item">
+                        <div class="song-number">3</div>
+                        <div class="song-info">
+                            <div class="song-title">A Thousand Years</div>
+                            <div class="song-artist">Christina Perri</div>
+                        </div>
+                        <div class="song-duration">4:45</div>
+                    </div>
+                    <div class="song-item">
+                        <div class="song-number">4</div>
+                        <div class="song-info">
+                            <div class="song-title">Thinking Out Loud</div>
+                            <div class="song-artist">Ed Sheeran</div>
+                        </div>
+                        <div class="song-duration">4:41</div>
+                    </div>
+                    <div class="song-item">
+                        <div class="song-number">5</div>
+                        <div class="song-info">
+                            <div class="song-title">Marry Me</div>
+                            <div class="song-artist">Train</div>
+                        </div>
+                        <div class="song-duration">3:25</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blog Page -->
+        <div class="page" id="blogPage">
+            <h1 class="section-title">Our Story Blog 📖</h1>
+            
+            <div class="blog-container">
+                <div class="blog-form">
+                    <h2 style="color: var(--primary-pink); margin-bottom: 20px;">เขียนเรื่องราวใหม่</h2>
+                    <form id="blogForm">
+                        <div class="form-group">
+                            <label>หัวข้อ:</label>
+                            <input type="text" id="blogTitle" placeholder="หัวข้อเรื่องราว" required>
+                        </div>
+                        <div class="form-group">
+                            <label>เนื้อหา:</label>
+                            <textarea id="blogContent" rows="8" placeholder="เล่าเรื่องราวของเรา..." required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>โดย:</label>
+                            <input type="text" id="blogAuthor" placeholder="ชื่อผู้เขียน" required>
+                        </div>
+                        <button type="submit" class="btn">บันทึกเรื่องราว 📝</button>
+                    </form>
+                </div>
+
+                <div class="blog-posts" id="blogPosts"></div>
+            </div>
+        </div>
+
+        <!-- Map Page -->
+        <div class="page" id="mapPage">
+            <h1 class="section-title">Our Journey Map 🗺️</h1>
+            
+            <div class="map-container">
+                <div class="map-placeholder">
+                    <span>🗺️ Interactive Map Coming Soon</span>
+                </div>
+
+                <h2 style="color: var(--primary-pink); margin-bottom: 20px; text-align: center;">สถานที่ที่เราเคยไปด้วยกัน</h2>
+                <div class="location-list">
+                    <div class="location-card">
+                        <div class="location-image">🏖️</div>
+                        <div class="location-info">
+                            <h3 class="location-name">หาดใหญ่</h3>
+                            <p class="location-date">1 July 2023</p>
+                            <p class="location-description">ทริปแรกที่เราไปด้วยกัน ทะเลสวยมาก พระอาทิตย์ตกสุดโรแมนติก</p>
+                        </div>
+                    </div>
+                    <div class="location-card">
+                        <div class="location-image">🏔️</div>
+                        <div class="location-info">
+                            <h3 class="location-name">เชียงใหม่</h3>
+                            <p class="location-date">15 December 2023</p>
+                            <p class="location-description">ไปดอยสุเทพ อากาศเย็นสบาย ได้ไหว้พระขอพรความรักยั่งยืน</p>
+                        </div>
+                    </div>
+                    <div class="location-card">
+                        <div class="location-image">🌺</div>
+                        <div class="location-info">
+                            <h3 class="location-name">กระบี่</h3>
+                            <p class="location-date">14 February 2024</p>
+                            <p class="location-description">ฉลองวันครบรอบที่ทะเล ไปดำน้ำดูปะการัง สวยมากๆ</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Secret Messages Page -->
+        <div class="page" id="secretPage">
+            <h1 class="section-title">Secret Messages 🔒</h1>
+            
+            <div class="secret-container">
+                <div class="secret-locked" id="secretLocked">
+                    <div class="secret-locked-icon">🔒</div>
+                    <h2 style="color: var(--primary-pink); margin-bottom: 20px;">ข้อความลับ</h2>
+                    <p style="color: var(--gray); margin-bottom: 20px;">ใส่รหัสผ่านเพื่ออ่านข้อความพิเศษ</p>
+                    <div class="secret-password-input">
+                        <input type="password" id="secretPassword" placeholder="รหัสผ่าน" onkeyup="checkSecretPassword(event)">
+                        <button class="btn" style="margin-top: 10px;" onclick="unlockSecret()">ปลดล็อค</button>
+                    </div>
+                </div>
+
+                <div class="secret-messages" id="secretMessages">
+                    <div class="secret-message-item">
+                        <div class="secret-message-date">14 February 2024</div>
+                        <div class="secret-message-content">
+                            รักเธอที่สุดในโลก ขอบคุณที่เข้ามาทำให้ชีวิตมีความหมาย 
+                            ทุกวันที่มีเธออยู่ข้างๆ คือวันที่ดีที่สุด 💕
+                        </div>
+                    </div>
+                    <div class="secret-message-item">
+                        <div class="secret-message-date">1 January 2024</div>
+                        <div class="secret-message-content">
+                            ปีใหม่นี้ขอให้เราได้อยู่ด้วยกันตลอดไป 
+                            สร้างความทรงจำดีๆ ร่วมกันอีกมากมาย 🎆
+                        </div>
+                    </div>
+                    <div class="secret-message-item">
+                        <div class="secret-message-date">Special Message</div>
+                        <div class="secret-message-content">
+                            เธอคือของขวัญที่ดีที่สุดในชีวิต 
+                            ขอบคุณที่ทำให้ทุกวันเป็นวันพิเศษ 🎁
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Music Player -->
+    <div class="music-player">
+        <button class="music-toggle" onclick="toggleMusic()">
+            <span id="musicIcon">🎵</span>
+        </button>
+        <div>
+            <p style="margin: 0; font-weight: bold;">Our Song</p>
+            <p style="margin: 0; font-size: 14px; color: var(--gray);">Perfect - Ed Sheeran</p>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // Google Sheets Configuration
+        const SHEET_ID = '1DQRtegmF9i9FgA_FOecYrV36rmrFnDkOv94L251zIIs'; // ใส่ ID ของ Google Sheet ที่สร้าง
+        const API_KEY = 'AIzaSyC_kQRNURUJCJyPLZe2O1-5rMvaUt7W8a4'; // ใส่ API Key (optional สำหรับ read-only)
+        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbz_v_cL_vdmWaKj6j9R37q5AlQtLq9_WWZ8nHhgRwbbHPgSQY1Lz8LKUoKp-FxDuhXEcQ/exec'; // URL จาก Google Apps Script
+
+        // Initialize
+        const startDate = new Date('2023-02-14'); // เปลี่ยนเป็นวันที่คบกัน
+        let currentPage = 'home';
+        let currentMonth = new Date();
+        let isPlaying = false;
+
+        // Calculate days together
+        function updateDayCount() {
+            const today = new Date();
+            const diffTime = Math.abs(today - startDate);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            document.getElementById('dayCount').textContent = diffDays;
+        }
+
+        // Page Navigation
+        function showPage(pageName) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageName + 'Page').classList.add('active');
+            
+            // Update nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Close mobile menu
+            document.getElementById('navMenu').classList.remove('active');
+            
+            currentPage = pageName;
+            
+            // Load page specific content
+            loadPageContent(pageName);
+        }
+
+        // Load page content
+        function loadPageContent(pageName) {
+            switch(pageName) {
+                case 'letters':
+                    loadLetters();
+                    break;
+                case 'calendar':
+                    renderCalendar();
+                    loadSpecialDates();
+                    break;
+                case 'wishlist':
+                    loadWishlist();
+                    break;
+                case 'blog':
+                    loadBlogPosts();
+                    break;
+            }
+        }
+
+        // Toggle Mobile Menu
+        function toggleMobileMenu() {
+            document.getElementById('navMenu').classList.toggle('active');
+        }
+
+        // Toast Notification
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast show ${type}`;
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Google Sheets Integration
+        async function saveToSheet(sheetName, data) {
+            try {
+                const response = await fetch(WEB_APP_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: 'create',
+                        sheet: sheetName,
+                        data: data
+                    })
+                });
+                
+                const result = await response.json();
+                if (result.success) {
+                    showToast('บันทึกข้อมูลสำเร็จ! 💕');
+                    return true;
+                }
+            } catch (error) {
+                console.error('Error saving to sheet:', error);
+                showToast('เกิดข้อผิดพลาด กรุณาลองใหม่', 'error');
+                return false;
+            }
+        }
+
+        async function loadFromSheet(sheetName) {
+            try {
+                const response = await fetch(`${WEB_APP_URL}?action=read&sheet=${sheetName}`);
+                const result = await response.json();
+                return result.data || [];
+            } catch (error) {
+                console.error('Error loading from sheet:', error);
+                return [];
+            }
+        }
+
+        // Love Letters Functions
+        document.getElementById('letterForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const letterData = {
+                from: document.getElementById('letterFrom').value,
+                to: document.getElementById('letterTo').value,
+                content: document.getElementById('letterContent').value,
+                date: new Date().toLocaleDateString('th-TH')
+            };
+            
+            const saved = await saveToSheet('Letters', letterData);
+            if (saved) {
+                document.getElementById('letterForm').reset();
+                loadLetters();
+            }
+        });
+
+        async function loadLetters() {
+            const letters = await loadFromSheet('Letters');
+            const container = document.getElementById('lettersContainer');
+            
+            container.innerHTML = '';
+            letters.reverse().forEach(letter => {
+                const letterElement = document.createElement('div');
+                letterElement.className = 'letter-item';
+                letterElement.innerHTML = `
+                    <div class="letter-date">${letter.date}</div>
+                    <div class="letter-from">จาก: ${letter.from} ถึง: ${letter.to}</div>
+                    <div class="letter-content">${letter.content}</div>
+                `;
+                container.appendChild(letterElement);
+            });
+        }
+
+        // Mini Games Functions
+        function showGame(gameType) {
+            document.getElementById('gamesGrid').style.display = 'none';
+            
+            switch(gameType) {
+                case 'memory':
+                    document.getElementById('memoryGame').style.display = 'block';
+                    initMemoryGame();
+                    break;
+                case 'quiz':
+                    document.getElementById('quizGame').style.display = 'block';
+                    initQuizGame();
+                    break;
+            }
+        }
+
+        // Memory Game
+        let memoryCards = [];
+        let flippedCards = [];
+        let matchedPairs = 0;
+        let moves = 0;
+
+        function initMemoryGame() {
+            const emojis = ['💕', '🌹', '💑', '💏', '💝', '💖', '💗', '💓'];
+            const gameEmojis = [...emojis, ...emojis];
+            gameEmojis.sort(() => Math.random() - 0.5);
+            
+            const grid = document.getElementById('memoryGrid');
+            grid.innerHTML = '';
+            memoryCards = [];
+            flippedCards = [];
+            matchedPairs = 0;
+            moves = 0;
+            document.getElementById('moveCount').textContent = moves;
+            
+            gameEmojis.forEach((emoji, index) => {
+                const card = document.createElement('div');
+                card.className = 'memory-card';
+                card.dataset.emoji = emoji;
+                card.dataset.index = index;
+                card.textContent = '?';
+                card.addEventListener('click', flipCard);
+                grid.appendChild(card);
+                memoryCards.push(card);
+            });
+        }
+
+        function flipCard() {
+            if (flippedCards.length >= 2) return;
+            if (this.classList.contains('flipped') || this.classList.contains('matched')) return;
+            
+            this.classList.add('flipped');
+            this.textContent = this.dataset.emoji;
+            flippedCards.push(this);
+            
+            if (flippedCards.length === 2) {
+                moves++;
+                document.getElementById('moveCount').textContent = moves;
+                checkMatch();
+            }
+        }
+
+        function checkMatch() {
+            const [card1, card2] = flippedCards;
+            
+            if (card1.dataset.emoji === card2.dataset.emoji) {
+                card1.classList.add('matched');
+                card2.classList.add('matched');
+                matchedPairs++;
+                flippedCards = [];
+                
+                if (matchedPairs === 8) {
+                    setTimeout(() => {
+                        showToast(`ยินดีด้วย! คุณชนะด้วย ${moves} moves! 🎉`);
+                    }, 500);
+                }
+            } else {
+                setTimeout(() => {
+                    card1.classList.remove('flipped');
+                    card2.classList.remove('flipped');
+                    card1.textContent = '?';
+                    card2.textContent = '?';
+                    flippedCards = [];
+                }, 1000);
+            }
+        }
+
+        function resetMemoryGame() {
+            initMemoryGame();
+        }
+
+        // Quiz Game
+        const quizQuestions = [
+            {
+                question: "สีที่เธอชอบที่สุดคืออะไร?",
+                options: ["สีชมพู", "สีฟ้า", "สีเหลือง", "สีเขียว"],
+                correct: 0
+            },
+            {
+                question: "อาหารที่เธอชอบที่สุดคืออะไร?",
+                options: ["ส้มตำ", "ผัดไทย", "ต้มยำกุ้ง", "ข้าวผัด"],
+                correct: 1
+            },
+            {
+                question: "เราเจอกันครั้งแรกที่ไหน?",
+                options: ["ร้านกาแฟ", "สวนสาธารณะ", "ห้างสรรพสินค้า", "มหาวิทยาลัย"],
+                correct: 0
+            }
+        ];
+
+        let currentQuestion = 0;
+        let quizScore = 0;
+
+        function initQuizGame() {
+            currentQuestion = 0;
+            quizScore = 0;
+            showQuizQuestion();
+        }
+
+        function showQuizQuestion() {
+            const container = document.getElementById('quizContainer');
+            
+            if (currentQuestion >= quizQuestions.length) {
+                container.innerHTML = `
+                    <div class="quiz-question">
+                        <h2 style="color: var(--primary-pink); text-align: center;">Quiz สำเร็จ! 🎉</h2>
+                        <p style="text-align: center; font-size: 1.5rem; margin: 20px 0;">คะแนนของคุณ: ${quizScore}/${quizQuestions.length}</p>
+                        <div style="text-align: center;">
+                            <button class="btn btn-yellow" onclick="initQuizGame()">เล่นอีกครั้ง</button>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+            
+            const question = quizQuestions[currentQuestion];
+            container.innerHTML = `
+                <div class="quiz-question">
+                    <h3 style="color: var(--primary-pink); margin-bottom: 20px;">คำถามที่ ${currentQuestion + 1}/${quizQuestions.length}</h3>
+                    <p style="font-size: 1.2rem; margin-bottom: 20px;">${question.question}</p>
+                    <div class="quiz-options">
+                        ${question.options.map((option, index) => `
+                            <div class="quiz-option" onclick="selectQuizAnswer(${index})">${option}</div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function selectQuizAnswer(index) {
+            const question = quizQuestions[currentQuestion];
+            const options = document.querySelectorAll('.quiz-option');
+            
+            if (index === question.correct) {
+                options[index].classList.add('correct');
+                quizScore++;
+                showToast('ถูกต้อง! 💕');
+            } else {
+                options[index].classList.add('wrong');
+                options[question.correct].classList.add('correct');
+                showToast('ผิดนะ ลองใหม่! 😊');
+            }
+            
+            setTimeout(() => {
+                currentQuestion++;
+                showQuizQuestion();
+            }, 2000);
+        }
+
+        // Calendar Functions
+        function renderCalendar() {
+            const year = currentMonth.getFullYear();
+            const month = currentMonth.getMonth();
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            
+            document.getElementById('calendarMonth').textContent = 
+                new Date(year, month).toLocaleDateString('th-TH', { month: 'long', year: 'numeric' });
+            
+            const grid = document.getElementById('calendarGrid');
+            grid.innerHTML = '';
+            
+            // Day headers
+            const dayHeaders = ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'];
+            dayHeaders.forEach(day => {
+                const header = document.createElement('div');
+                header.style.textAlign = 'center';
+                header.style.fontWeight = 'bold';
+                header.style.color = 'var(--primary-pink)';
+                header.textContent = day;
+                grid.appendChild(header);
+            });
+            
+            // Empty cells
+            for (let i = 0; i < firstDay; i++) {
+                grid.appendChild(document.createElement('div'));
+            }
+            
+            // Days
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayElement = document.createElement('div');
+                dayElement.className = 'calendar-day';
+                dayElement.textContent = day;
+                
+                // Mark special dates
+                if (isSpecialDate(year, month, day)) {
+                    dayElement.classList.add('special');
+                }
+                
+                grid.appendChild(dayElement);
+            }
+        }
+
+        function changeMonth(direction) {
+            currentMonth.setMonth(currentMonth.getMonth() + direction);
+            renderCalendar();
+        }
+
+        function isSpecialDate(year, month, day) {
+            const specialDates = [
+                { month: 1, day: 14 }, // Valentine's Day
+                { month: startDate.getMonth(), day: startDate.getDate() }, // Anniversary
+            ];
+            
+            return specialDates.some(date => date.month === month && date.day === day);
+        }
+
+        function loadSpecialDates() {
+            const specialDates = [
+                { title: "วันครบรอบของเรา 💕", date: startDate, type: "anniversary" },
+                { title: "Valentine's Day 💝", date: new Date(new Date().getFullYear(), 1, 14), type: "valentine" },
+                { title: "วันเกิดของเธอ 🎂", date: new Date(new Date().getFullYear(), 4, 15), type: "birthday" },
+                { title: "วันเกิดของฉัน 🎉", date: new Date(new Date().getFullYear(), 7, 20), type: "birthday" }
+            ];
+            
+            const container = document.getElementById('specialDatesList');
+            container.innerHTML = '';
+            
+            specialDates.forEach(special => {
+                const daysUntil = Math.ceil((special.date - new Date()) / (1000 * 60 * 60 * 24));
+                const isPast = daysUntil < 0;
+                
+                const element = document.createElement('div');
+                element.className = 'special-date-item';
+                element.innerHTML = `
+                    <div>
+                        <h3 style="color: var(--primary-pink); margin: 0;">${special.title}</h3>
+                        <p style="color: var(--gray); margin: 5px 0 0 0;">
+                            ${special.date.toLocaleDateString('th-TH', { day: 'numeric', month: 'long', year: 'numeric' })}
+                        </p>
+                    </div>
+                    <div class="countdown">
+                        ${isPast ? `ผ่านมาแล้ว ${Math.abs(daysUntil)} วัน` : `อีก ${daysUntil} วัน`}
+                    </div>
+                `;
+                container.appendChild(element);
+            });
+        }
+
+        // Wishlist Functions
+        document.getElementById('wishlistForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const wishData = {
+                title: document.getElementById('wishTitle').value,
+                description: document.getElementById('wishDescription').value,
+                by: document.getElementById('wishBy').value,
+                date: new Date().toLocaleDateString('th-TH')
+            };
+            
+            const saved = await saveToSheet('Wishlist', wishData);
+            if (saved) {
+                document.getElementById('wishlistForm').reset();
+                loadWishlist();
+            }
+        });
+
+        async function loadWishlist() {
+            const wishes = await loadFromSheet('Wishlist');
+            const grid = document.getElementById('wishlistGrid');
+            
+            grid.innerHTML = '';
+            wishes.forEach(wish => {
+                const wishElement = document.createElement('div');
+                wishElement.className = 'wishlist-item';
+                wishElement.innerHTML = `
+                    <div class="wishlist-icon">🎁</div>
+                    <h3 class="wishlist-title">${wish.title}</h3>
+                    <p class="wishlist-description">${wish.description}</p>
+                    <p class="wishlist-by">อยากได้โดย: ${wish.by}</p>
+                `;
+                grid.appendChild(wishElement);
+            });
+        }
+
+        // Dreams Functions
+        function toggleDream(checkbox) {
+            checkbox.classList.toggle('checked');
+            const isChecked = checkbox.classList.contains('checked');
+            
+            // Save dream status to localStorage
+            const dreamText = checkbox.nextElementSibling.textContent;
+            const dreams = JSON.parse(localStorage.getItem('dreams') || '{}');
+            dreams[dreamText] = isChecked;
+            localStorage.setItem('dreams', JSON.stringify(dreams));
+            
+            if (isChecked) {
+                showToast('ทำสำเร็จแล้ว! 🎉');
+            }
+        }
+
+        // Load dream status
+        function loadDreams() {
+            const dreams = JSON.parse(localStorage.getItem('dreams') || '{}');
+            document.querySelectorAll('.dream-item').forEach(item => {
+                const dreamText = item.querySelector('span').textContent;
+                if (dreams[dreamText]) {
+                    item.querySelector('.dream-checkbox').classList.add('checked');
+                }
+            });
+        }
+
+        // Blog Functions
+        document.getElementById('blogForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const blogData = {
+                title: document.getElementById('blogTitle').value,
+                content: document.getElementById('blogContent').value,
+                author: document.getElementById('blogAuthor').value,
+                date: new Date().toLocaleDateString('th-TH')
+            };
+            
+            const saved = await saveToSheet('Stories', blogData);
+            if (saved) {
+                document.getElementById('blogForm').reset();
+                loadBlogPosts();
+            }
+        });
+
+        async function loadBlogPosts() {
+            const posts = await loadFromSheet('Stories');
+            const container = document.getElementById('blogPosts');
+            
+            container.innerHTML = '';
+            posts.reverse().forEach(post => {
+                const postElement = document.createElement('div');
+                postElement.className = 'blog-post';
+                postElement.innerHTML = `
+                    <div class="blog-post-header">
+                        <h3 class="blog-post-title">${post.title}</h3>
+                        <p class="blog-post-meta">${post.date} • โดย ${post.author}</p>
+                    </div>
+                    <div class="blog-post-content">
+                        ${post.content.replace(/\n/g, '<br>')}
+                    </div>
+                `;
+                container.appendChild(postElement);
+            });
+        }
+
+        // Video Functions
+        function playVideo(videoId) {
+            showToast('กำลังเปิดวิดีโอ... 🎬');
+            // Add your video playing logic here
+        }
+
+        // Secret Messages Functions
+        function checkSecretPassword(event) {
+            if (event.key === 'Enter') {
+                unlockSecret();
+            }
+        }
+
+        function unlockSecret() {
+            const password = document.getElementById('secretPassword').value;
+            const correctPassword = 'love123'; // เปลี่ยนรหัสผ่านตามต้องการ
+            
+            if (password === correctPassword) {
+                document.getElementById('secretLocked').style.display = 'none';
+                document.getElementById('secretMessages').style.display = 'block';
+                showToast('ปลดล็อคสำเร็จ! 💕');
+            } else {
+                showToast('รหัสผ่านไม่ถูกต้อง', 'error');
+                document.getElementById('secretPassword').value = '';
+            }
+        }
+
+        // Music Player
+        function toggleMusic() {
+            isPlaying = !isPlaying;
+            document.getElementById('musicIcon').textContent = isPlaying ? '⏸️' : '🎵';
+            
+            if (isPlaying) {
+                showToast('เปิดเพลง 🎵');
+            } else {
+                showToast('หยุดเพลง');
+            }
+        }
+
+        // Floating Hearts
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.textContent = '💕';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDelay = Math.random() * 5 + 's';
+            heart.style.fontSize = Math.random() * 20 + 20 + 'px';
+            document.getElementById('floatingHearts').appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 10000);
+        }
+
+        // Create hearts periodically
+        setInterval(createFloatingHeart, 3000);
+
+        // Loading Screen
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loadingScreen').style.display = 'none';
+                }, 1000);
+            }, 2000);
+            
+            // Initialize
+            updateDayCount();
+            loadDreams();
+        });        // Update day count daily
+        setInterval(updateDayCount, 86400000);
+    </script>
+</body>
+</html>
+
