@@ -1266,7 +1266,7 @@
                     <div style="text-align: center; margin-top: 20px;">
                         <p>Moves: <span id="moveCount">0</span></p>
                         <button class="btn btn-yellow" onclick="resetMemoryGame()">เริ่มใหม่</button>
-                        <button class="btn" onclick="backToGames()">กลับ</button>
+                        <button class="btn" onclick="showPage('games')">กลับ</button>
                     </div>
                 </div>
             </div>
@@ -1277,7 +1277,7 @@
                     <h2 style="text-align: center; color: var(--primary-pink);">Love Quiz</h2>
                     <div id="quizContainer"></div>
                     <div style="text-align: center; margin-top: 20px;">
-                        <button class="btn" onclick="backToGames()">กลับ</button>
+                        <button class="btn" onclick="showPage('games')">กลับ</button>
                     </div>
                 </div>
             </div>
@@ -1288,32 +1288,6 @@
             <h1 class="section-title">Special Dates 📅</h1>
             
             <div class="calendar-container">
-                <!-- Add Special Date Form -->
-                <div class="card" style="margin-bottom: 30px;">
-                    <h2 style="color: var(--primary-pink); margin-bottom: 20px;">เพิ่มวันสำคัญ</h2>
-                    <form id="specialDateForm">
-                        <div class="form-group">
-                            <label>ชื่อวันสำคัญ:</label>
-                            <input type="text" id="dateTitle" placeholder="เช่น วันครบรอบ 1 ปี" required>
-                        </div>
-                        <div class="form-group">
-                            <label>วันที่:</label>
-                            <input type="date" id="dateDate" required>
-                        </div>
-                        <div class="form-group">
-                            <label>ประเภท:</label>
-                            <select id="dateType" required>
-                                <option value="anniversary">💕 วันครบรอบ</option>
-                                <option value="birthday">🎂 วันเกิด</option>
-                                <option value="special">✨ วันพิเศษ</option>
-                                <option value="trip">✈️ วันเดินทาง</option>
-                                <option value="other">🌟 อื่นๆ</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn">เพิ่มวันสำคัญ 📅</button>
-                    </form>
-                </div>
-
                 <div class="card">
                     <div class="calendar-header">
                         <button class="btn btn-yellow" onclick="changeMonth(-1)">◀</button>
@@ -1334,31 +1308,29 @@
         <div class="page" id="videosPage">
             <h1 class="section-title">Video Memories 🎬</h1>
             
-            <!-- Add Video Form -->
-            <div class="card" style="max-width: 600px; margin: 0 auto 40px;">
-                <h2 style="color: var(--primary-pink); margin-bottom: 20px;">เพิ่มวิดีโอความทรงจำ</h2>
-                <form id="videoForm">
-                    <div class="form-group">
-                        <label>ชื่อวิดีโอ:</label>
-                        <input type="text" id="videoTitle" placeholder="เช่น ทริปทะเลครั้งแรก" required>
+            <div class="video-grid">
+                <div class="video-item">
+                    <div class="video-thumbnail" onclick="playVideo('video1')">▶️</div>
+                    <div class="video-info">
+                        <h3 class="video-title">Our First Trip</h3>
+                        <p class="video-date">1 July 2023</p>
                     </div>
-                    <div class="form-group">
-                        <label>URL วิดีโอ (YouTube/Google Drive):</label>
-                        <input type="url" id="videoUrl" placeholder="https://youtube.com/watch?v=..." required>
+                </div>
+                <div class="video-item">
+                    <div class="video-thumbnail" onclick="playVideo('video2')">▶️</div>
+                    <div class="video-info">
+                        <h3 class="video-title">Birthday Surprise</h3>
+                        <p class="video-date">14 February 2024</p>
                     </div>
-                    <div class="form-group">
-                        <label>URL รูปปก (optional):</label>
-                        <input type="url" id="videoThumbnail" placeholder="https://...">
+                </div>
+                <div class="video-item">
+                    <div class="video-thumbnail" onclick="playVideo('video3')">▶️</div>
+                    <div class="video-info">
+                        <h3 class="video-title">Anniversary Celebration</h3>
+                        <p class="video-date">14 February 2024</p>
                     </div>
-                    <div class="form-group">
-                        <label>วันที่:</label>
-                        <input type="date" id="videoDate" required>
-                    </div>
-                    <button type="submit" class="btn">เพิ่มวิดีโอ 🎬</button>
-                </form>
+                </div>
             </div>
-            
-            <div class="video-grid" id="videoGrid"></div>
         </div>
 
         <!-- Wishlist Page -->
@@ -1375,10 +1347,6 @@
                     <div class="form-group">
                         <label>รายละเอียด:</label>
                         <textarea id="wishDescription" rows="3" placeholder="บอกรายละเอียดเพิ่มเติม..." required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>URL รูปภาพ (optional):</label>
-                        <input type="url" id="wishImage" placeholder="https://...">
                     </div>
                     <div class="form-group">
                         <label>ใครอยากได้:</label>
@@ -1534,10 +1502,6 @@
                             <textarea id="blogContent" rows="8" placeholder="เล่าเรื่องราวของเรา..." required></textarea>
                         </div>
                         <div class="form-group">
-                            <label>URL รูปภาพ (optional - ใส่ได้หลายรูป คั่นด้วย ,):</label>
-                            <input type="text" id="blogImages" placeholder="https://image1.jpg, https://image2.jpg">
-                        </div>
-                        <div class="form-group">
                             <label>โดย:</label>
                             <input type="text" id="blogAuthor" placeholder="ชื่อผู้เขียน" required>
                         </div>
@@ -1648,7 +1612,7 @@
         // Google Sheets Configuration
         const SHEET_ID = '1DQRtegmF9i9FgA_FOecYrV36rmrFnDkOv94L251zIIs'; // ใส่ ID ของ Google Sheet ที่สร้าง
         const API_KEY = 'AIzaSyC_kQRNURUJCJyPLZe2O1-5rMvaUt7W8a4'; // ใส่ API Key (optional สำหรับ read-only)
-        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbypanMNj4PKRix93UWr82P_OCAJB2PNGVGuym9D4iVPPXxKZ0-rJ656s4voP5Rt1i1nYg/exec?action=read&sheet=Wishlist'; // URL จาก Google Apps Script
+        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzGN1DU8KJV0GBWgdfoHbrr0MwQwa7RB0JSKf0dj1mKD5AhZriJD8x0Yxwr7khKYpKrtA/exec?action=read&sheet=Wishlist'; // URL จาก Google Apps Script
 
         // Initialize
         const startDate = new Date('2023-02-14'); // เปลี่ยนเป็นวันที่คบกัน
@@ -1846,13 +1810,6 @@
                     initQuizGame();
                     break;
             }
-        }
-
-        // Function to go back to games menu
-        function backToGames() {
-            document.getElementById('memoryGame').style.display = 'none';
-            document.getElementById('quizGame').style.display = 'none';
-            document.getElementById('gamesGrid').style.display = 'grid';
         }
 
         // Memory Game
@@ -2200,207 +2157,10 @@
             });
         }
 
-        // Special Dates Functions
-        document.getElementById('specialDateForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const dateData = {
-                title: document.getElementById('dateTitle').value,
-                date: document.getElementById('dateDate').value,
-                type: document.getElementById('dateType').value,
-                dateAdded: new Date().toLocaleDateString('th-TH')
-            };
-            
-            const saved = await saveToSheet('SpecialDates', dateData);
-            if (saved) {
-                document.getElementById('specialDateForm').reset();
-                loadSpecialDates();
-                renderCalendar();
-            }
-        });
-
-        async function loadSpecialDates() {
-            const savedDates = await loadFromSheet('SpecialDates');
-            const container = document.getElementById('specialDatesList');
-            container.innerHTML = '';
-            
-            // Add default dates
-            const defaultDates = [
-                { title: "วันครบรอบของเรา 💕", date: startDate.toISOString().split('T')[0], type: "anniversary" },
-                { title: "Valentine's Day 💝", date: new Date(new Date().getFullYear(), 1, 14).toISOString().split('T')[0], type: "valentine" }
-            ];
-            
-            const allDates = [...defaultDates, ...savedDates];
-            
-            allDates.forEach(special => {
-                const specialDate = new Date(special.date);
-                const daysUntil = Math.ceil((specialDate - new Date()) / (1000 * 60 * 60 * 24));
-                const isPast = daysUntil < 0;
-                
-                const element = document.createElement('div');
-                element.className = 'special-date-item';
-                element.innerHTML = `
-                    <div>
-                        <h3 style="color: var(--primary-pink); margin: 0;">${special.title}</h3>
-                        <p style="color: var(--gray); margin: 5px 0 0 0;">
-                            ${specialDate.toLocaleDateString('th-TH', { day: 'numeric', month: 'long', year: 'numeric' })}
-                        </p>
-                    </div>
-                    <div class="countdown">
-                        ${isPast ? `ผ่านมาแล้ว ${Math.abs(daysUntil)} วัน` : `อีก ${daysUntil} วัน`}
-                    </div>
-                `;
-                container.appendChild(element);
-            });
-        }
-
         // Video Functions
-        document.getElementById('videoForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const videoData = {
-                title: document.getElementById('videoTitle').value,
-                url: document.getElementById('videoUrl').value,
-                thumbnail: document.getElementById('videoThumbnail').value || '',
-                date: document.getElementById('videoDate').value,
-                dateAdded: new Date().toLocaleDateString('th-TH')
-            };
-            
-            const saved = await saveToSheet('Videos', videoData);
-            if (saved) {
-                document.getElementById('videoForm').reset();
-                loadVideos();
-            }
-        });
-
-        async function loadVideos() {
-            const videos = await loadFromSheet('Videos');
-            const grid = document.getElementById('videoGrid');
-            
-            grid.innerHTML = '';
-            videos.forEach(video => {
-                const videoElement = document.createElement('div');
-                videoElement.className = 'video-item';
-                
-                // Convert YouTube URL to embed URL
-                let embedUrl = video.url;
-                if (video.url.includes('youtube.com/watch?v=')) {
-                    const videoId = video.url.split('v=')[1].split('&')[0];
-                    embedUrl = `https://www.youtube.com/embed/${videoId}`;
-                }
-                
-                videoElement.innerHTML = `
-                    <div class="video-thumbnail" onclick="playVideo('${embedUrl}')" style="${video.thumbnail ? `background-image: url(${video.thumbnail}); background-size: cover; background-position: center;` : ''}">
-                        ${!video.thumbnail ? '▶️' : '<div style="background: rgba(0,0,0,0.5); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 3rem;">▶️</div>'}
-                    </div>
-                    <div class="video-info">
-                        <h3 class="video-title">${video.title}</h3>
-                        <p class="video-date">${new Date(video.date).toLocaleDateString('th-TH')}</p>
-                    </div>
-                `;
-                grid.appendChild(videoElement);
-            });
-        }
-
-        // Updated Wishlist Functions
-        document.getElementById('wishlistForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const wishData = {
-                title: document.getElementById('wishTitle').value,
-                description: document.getElementById('wishDescription').value,
-                image: document.getElementById('wishImage').value || '',
-                by: document.getElementById('wishBy').value,
-                date: new Date().toLocaleDateString('th-TH')
-            };
-            
-            const saved = await saveToSheet('Wishlist', wishData);
-            if (saved) {
-                document.getElementById('wishlistForm').reset();
-                loadWishlist();
-            }
-        });
-
-        async function loadWishlist() {
-            const wishes = await loadFromSheet('Wishlist');
-            const grid = document.getElementById('wishlistGrid');
-            
-            grid.innerHTML = '';
-            wishes.forEach(wish => {
-                const wishElement = document.createElement('div');
-                wishElement.className = 'wishlist-item';
-                wishElement.innerHTML = `
-                    ${wish.image ? `<img src="${wish.image}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px; margin-bottom: 15px;">` : '<div class="wishlist-icon">🎁</div>'}
-                    <h3 class="wishlist-title">${wish.title}</h3>
-                    <p class="wishlist-description">${wish.description}</p>
-                    <p class="wishlist-by">อยากได้โดย: ${wish.by}</p>
-                `;
-                grid.appendChild(wishElement);
-            });
-        }
-
-        // Updated Blog Functions
-        document.getElementById('blogForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const blogData = {
-                title: document.getElementById('blogTitle').value,
-                content: document.getElementById('blogContent').value,
-                images: document.getElementById('blogImages').value || '',
-                author: document.getElementById('blogAuthor').value,
-                date: new Date().toLocaleDateString('th-TH')
-            };
-            
-            const saved = await saveToSheet('Stories', blogData);
-            if (saved) {
-                document.getElementById('blogForm').reset();
-                loadBlogPosts();
-            }
-        });
-
-        async function loadBlogPosts() {
-            const posts = await loadFromSheet('Stories');
-            const container = document.getElementById('blogPosts');
-            
-            container.innerHTML = '';
-            posts.reverse().forEach(post => {
-                const postElement = document.createElement('div');
-                postElement.className = 'blog-post';
-                
-                // Process images
-                let imagesHtml = '';
-                if (post.images) {
-                    const imageUrls = post.images.split(',').map(url => url.trim());
-                    imagesHtml = '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin: 20px 0;">';
-                    imageUrls.forEach(url => {
-                        imagesHtml += `<img src="${url}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px;">`;
-                    });
-                    imagesHtml += '</div>';
-                }
-                
-                postElement.innerHTML = `
-                    <div class="blog-post-header">
-                        <h3 class="blog-post-title">${post.title}</h3>
-                        <p class="blog-post-meta">${post.date} • โดย ${post.author}</p>
-                    </div>
-                    <div class="blog-post-content">
-                        ${post.content.replace(/\n/g, '<br>')}
-                        ${imagesHtml}
-                    </div>
-                `;
-                container.appendChild(postElement);
-            });
-        }
-
-        // Video Functions
-        function playVideo(videoUrl) {
-            const modal = document.getElementById('modal');
-            const modalContent = document.getElementById('modalContent');
-            
-            modalContent.innerHTML = `
-                <iframe width="100%" height="400" src="${videoUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            `;
-            modal.style.display = 'flex';
+        function playVideo(videoId) {
+            showToast('กำลังเปิดวิดีโอ... 🎬');
+            // Add your video playing logic here
         }
 
         // Secret Messages Functions
