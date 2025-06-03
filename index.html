@@ -43,7 +43,7 @@
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            transition: opacity 1s ease-out;
+            transition: opacity 0.5s ease-out;
         }
 
         .heart-loader {
@@ -1097,6 +1097,20 @@
         <p style="margin-top: 20px; color: var(--primary-pink); font-size: 1.2rem;">Loading our universe...</p>
     </div>
 
+    <!-- Quick hide loading script -->
+    <script>
+        // Hide loading screen quickly
+        setTimeout(function() {
+            var loader = document.getElementById('loadingScreen');
+            if (loader) {
+                loader.style.opacity = '0';
+                setTimeout(function() {
+                    loader.style.display = 'none';
+                }, 500);
+            }
+        }, 1000);
+    </script>
+
     <!-- Floating Hearts -->
     <div class="floating-hearts" id="floatingHearts"></div>
 
@@ -1597,7 +1611,7 @@
     <script>
         // Google Sheets Configuration
         const SHEET_ID = '1DQRtegmF9i9FgA_FOecYrV36rmrFnDkOv94L251zIIs'; // ใส่ ID ของ Google Sheet ที่สร้าง
-        const API_KEY = 'AIzaSyC_kQRNURUJCJyPLZe2O1-5rMvaUt7W8a4'; // ใส่ API Key (optional สำหรับ read-only)
+        const API_KEY = 'https://script.google.com/macros/s/AKfycbypanMNj4PKRix93UWr82P_OCAJB2PNGVGuym9D4iVPPXxKZ0-rJ656s4voP5Rt1i1nYg/exec'; // ใส่ API Key (optional สำหรับ read-only)
         const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbypanMNj4PKRix93UWr82P_OCAJB2PNGVGuym9D4iVPPXxKZ0-rJ656s4voP5Rt1i1nYg/exec'; // URL จาก Google Apps Script
 
         // Initialize
@@ -2200,13 +2214,34 @@
         // Create hearts periodically
         setInterval(createFloatingHeart, 3000);
 
+        // Loading Screen - ซ่อนทันทีถ้าหน้าโหลดเสร็จแล้ว
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize first
+            updateDayCount();
+            
+            // Hide loading screen
+            setTimeout(() => {
+                const loadingScreen = document.getElementById('loadingScreen');
+                if (loadingScreen) {
+                    loadingScreen.style.opacity = '0';
+                    setTimeout(() => {
+                        loadingScreen.style.display = 'none';
+                    }, 500);
+                }
+            }, 1500);
+        });
+
         // Loading Screen
         window.addEventListener('load', function() {
+            // Hide loading screen after 2 seconds
             setTimeout(() => {
-                document.getElementById('loadingScreen').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('loadingScreen').style.display = 'none';
-                }, 1000);
+                const loadingScreen = document.getElementById('loadingScreen');
+                if (loadingScreen) {
+                    loadingScreen.style.opacity = '0';
+                    setTimeout(() => {
+                        loadingScreen.style.display = 'none';
+                    }, 1000);
+                }
             }, 2000);
             
             // Initialize
@@ -2214,5 +2249,17 @@
             loadDreams();
         });
 
+        // Backup: Remove loading screen if it takes too long
+        setTimeout(() => {
+            const loadingScreen = document.getElementById('loadingScreen');
+            if (loadingScreen && loadingScreen.style.display !== 'none') {
+                loadingScreen.style.display = 'none';
+                console.log('Force hide loading screen');
+            }
+        }, 5000);
+
         // Update day count daily
         setInterval(updateDayCount, 86400000);
+    </script>
+</body>
+</html>
