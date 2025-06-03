@@ -1094,7 +1094,7 @@
     <!-- Loading Screen -->
     <div class="loading-screen" id="loadingScreen">
         <div class="heart-loader"></div>
-        <p style="margin-top: 20px; color: var(--primary-pink); font-size: 1.2rem;">รอโหลดแปปน้าน้อนแชมมม</p>
+        <p style="margin-top: 20px; color: var(--primary-pink); font-size: 1.2rem;">Loading our universe...</p>
     </div>
 
     <!-- Floating Hearts -->
@@ -1597,8 +1597,8 @@
     <script>
         // Google Sheets Configuration
         const SHEET_ID = '1DQRtegmF9i9FgA_FOecYrV36rmrFnDkOv94L251zIIs'; // ใส่ ID ของ Google Sheet ที่สร้าง
-        const API_KEY = 'AKfycbx12OOF2lTs4F0mUkHg5VL-rlK-JLxo9_ZSUt9eWT1kC5x6LnFQjENxmVDvjJ3PO1g33g'; // ใส่ API Key (optional สำหรับ read-only)
-        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzGN1DU8KJV0GBWgdfoHbrr0MwQwa7RB0JSKf0dj1mKD5AhZriJD8x0Yxwr7khKYpKrtA/exec'; // URL จาก Google Apps Script
+        const API_KEY = 'AIzaSyC_kQRNURUJCJyPLZe2O1-5rMvaUt7W8a4'; // ใส่ API Key (optional สำหรับ read-only)
+        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbypanMNj4PKRix93UWr82P_OCAJB2PNGVGuym9D4iVPPXxKZ0-rJ656s4voP5Rt1i1nYg/exec'; // URL จาก Google Apps Script
 
         // Initialize
         const startDate = new Date('2023-02-14'); // เปลี่ยนเป็นวันที่คบกัน
@@ -1674,26 +1674,32 @@
             }, 3000);
         }
 
-        // Google Sheets Integration
+        // Google Sheets Integration using GET requests to avoid CORS
         async function saveToSheet(sheetName, data) {
             try {
-                const response = await fetch(WEB_APP_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        action: 'create',
-                        sheet: sheetName,
-                        data: data
-                    })
+                // Convert data to URL parameters
+                const params = new URLSearchParams({
+                    action: 'create',
+                    sheet: sheetName,
+                    ...data
                 });
                 
-                const result = await response.json();
-                if (result.success) {
+                // Use fetch with mode: 'no-cors' for saving
+                const url = `${WEB_APP_URL}?${params}`;
+                
+                // Create a hidden iframe to make the request
+                const iframe = document.createElement('iframe');
+                iframe.style.display = 'none';
+                iframe.src = url;
+                document.body.appendChild(iframe);
+                
+                // Remove iframe after 2 seconds
+                setTimeout(() => {
+                    document.body.removeChild(iframe);
                     showToast('บันทึกข้อมูลสำเร็จ! 💕');
-                    return true;
-                }
+                }, 2000);
+                
+                return true;
             } catch (error) {
                 console.error('Error saving to sheet:', error);
                 showToast('เกิดข้อผิดพลาด กรุณาลองใหม่', 'error');
@@ -1703,9 +1709,38 @@
 
         async function loadFromSheet(sheetName) {
             try {
-                const response = await fetch(`${WEB_APP_URL}?action=read&sheet=${sheetName}`);
-                const result = await response.json();
-                return result.data || [];
+                return new Promise((resolve, reject) => {
+                    // Create callback function name
+                    const callbackName = 'callback_' + Date.now();
+                    
+                    // Create callback function
+                    window[callbackName] = function(response) {
+                        // Clean up
+                        delete window[callbackName];
+                        document.body.removeChild(script);
+                        
+                        if (response.success) {
+                            resolve(response.data || []);
+                        } else {
+                            console.error('Error:', response.error);
+                            resolve([]);
+                        }
+                    };
+                    
+                    // Create script tag for JSONP
+                    const script = document.createElement('script');
+                    script.src = `${WEB_APP_URL}?action=read&sheet=${sheetName}&callback=${callbackName}`;
+                    document.body.appendChild(script);
+                    
+                    // Timeout after 10 seconds
+                    setTimeout(() => {
+                        if (window[callbackName]) {
+                            delete window[callbackName];
+                            document.body.removeChild(script);
+                            resolve([]);
+                        }
+                    }, 10000);
+                });
             } catch (error) {
                 console.error('Error loading from sheet:', error);
                 return [];
@@ -2177,9 +2212,7 @@
             // Initialize
             updateDayCount();
             loadDreams();
-        });        // Update day count daily
-        setInterval(updateDayCount, 86400000);
-    </script>
-</body>
-</html>
+        });
 
+        // Update day count daily
+        setInterval(updateDayCount, 86400000);
